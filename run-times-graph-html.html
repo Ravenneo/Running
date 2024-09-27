@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5K Run Times Progress</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .chart-container {
+            width: 80%;
+            max-width: 800px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="chart-container">
+        <canvas id="runChart"></canvas>
+    </div>
+
+    <script>
+        const data = [
+            { date: '2020-03-07', townsmoor: 33.4 },
+            { date: '2021-07-24', townsmoor: 30.27 },
+            { date: '2021-09-04', townsmoor: 27.6 },
+            { date: '2021-09-18', townsmoor: 28.12 },
+            { date: '2022-01-22', townsmoor: 28.35 },
+            { date: '2022-01-29', townsmoor: 31.05 },
+            { date: '2022-02-12', townsmoor: 27.08 },
+            { date: '2022-02-19', townsmoor: 26.65 },
+            { date: '2022-03-05', townsmoor: 26.97 },
+            { date: '2022-03-12', townsmoor: 26.15 },
+            { date: '2022-03-26', townsmoor: 26.15 },
+            { date: '2022-04-16', townsmoor: 26.83 },
+            { date: '2022-05-07', townsmoor: 24.35 },
+            { date: '2022-05-21', townsmoor: 24.78 },
+            { date: '2022-05-28', leazes: 25.15 },
+            { date: '2022-06-06', townsmoor: 24.88 },
+            { date: '2022-06-23', leazes: 25.35 },
+            { date: '2022-08-06', townsmoor: 24.88 },
+            { date: '2022-09-17', townsmoor: 25.73 },
+            { date: '2022-10-07', greatNorth: 23.55, sevillaBF: 25.92 },
+            { date: '2023-03-18', townsmoor: 26.2 },
+            { date: '2023-04-29', townsmoor: 26.25 },
+            { date: '2023-05-06', townsmoor: 24.55 },
+            { date: '2023-06-03', leazes: 25.38 },
+            { date: '2023-06-10', leazes: 24.32 },
+            { date: '2023-09-30', townsmoor: 25.62 },
+            { date: '2024-03-23', leazes: 25.43 },
+            { date: '2024-03-30', leazes: 23.65 },
+            { date: '2024-04-13', townsmoor: 24.27 },
+            { date: '2024-04-20', townsmoor: 23.18 },
+        ];
+
+        const ctx = document.getElementById('runChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: data.map(row => new Date(row.date).toLocaleDateString('en-GB', { year: '2-digit', month: 'short' })),
+                datasets: [
+                    {
+                        label: 'Townsmoor',
+                        data: data.map(row => row.townsmoor),
+                        borderColor: '#8884d8',
+                        fill: false
+                    },
+                    {
+                        label: 'Leazes',
+                        data: data.map(row => row.leazes),
+                        borderColor: '#82ca9d',
+                        fill: false
+                    },
+                    {
+                        label: 'Great North 5K',
+                        data: data.map(row => row.greatNorth),
+                        borderColor: '#ffc658',
+                        fill: false
+                    },
+                    {
+                        label: 'Sevilla BF 5K',
+                        data: data.map(row => row.sevillaBF),
+                        borderColor: '#ff7300',
+                        fill: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: '5K Run Times Progress',
+                        font: {
+                            size: 18
+                        }
+                    },
+                    legend: {
+                        position: 'top',
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Time (minutes)'
+                        },
+                        min: 20,
+                        max: 35
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
